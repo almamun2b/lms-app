@@ -9,21 +9,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Book } from "@/redux/features/books/types";
-import { Book as BookIcon, BookOpen, Edit, Trash2 } from "lucide-react";
+import { Book as BookIcon, BookOpen, Edit } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
+import { BorrowBookModal } from "./BorrowBookModal";
+import { DeleteBookModal } from "./DeleteBookModal";
 
 interface BookCardProps {
   book: Book;
-  onDelete: (id: string) => void;
-  onBorrow: (id: string) => void;
 }
 
-export const BookCard: React.FC<BookCardProps> = ({
-  book,
-  onDelete,
-  onBorrow,
-}) => {
+export const BookCard: React.FC<BookCardProps> = ({ book }) => {
+  const handleShowNotAvailable = () => {
+    toast.error("Book is not available for borrowing.");
+  };
+
   return (
     <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-200">
       <CardHeader className="pb-3">
@@ -76,23 +77,16 @@ export const BookCard: React.FC<BookCardProps> = ({
               Edit
             </Link>
           </Button>
-
-          <Button
-            onClick={() => onDelete(book._id)}
-            variant="outline"
-            size="sm"
-            className="text-destructive hover:text-destructive"
-          >
-            <Trash2 className="w-4 h-4 mr-1" />
-            Delete
-          </Button>
+          <DeleteBookModal book={book} />
         </div>
 
-        {book.available && (
+        {book.available ? (
+          <BorrowBookModal book={book} />
+        ) : (
           <Button
-            onClick={() => onBorrow(book._id)}
             size="sm"
             className="ml-auto"
+            onClick={handleShowNotAvailable}
           >
             <BookOpen className="w-4 h-4 mr-1" />
             Borrow

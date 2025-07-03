@@ -5,7 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t bg-gray-800 dark:bg-background text-white dark:text-foreground">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -25,31 +25,29 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">
-              Quick Links
-            </h3>
+            <h3 className="text-lg font-semibold">Quick Links</h3>
             <nav className="space-y-2">
               <Link
                 to="/"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Home
               </Link>
               <Link
                 to="/books"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Books
               </Link>
               <Link
                 to="/create-book"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Create Book
               </Link>
               <Link
                 to="/borrow-summary"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Borrow Summary
               </Link>
@@ -58,29 +56,29 @@ const Footer = () => {
 
           {/* Support */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Support</h3>
+            <h3 className="text-lg font-semibold">Support</h3>
             <nav className="space-y-2">
               <Link
                 to="/help"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Help Center
               </Link>
               <Link
                 to="/"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 FAQ
               </Link>
               <Link
                 to="/"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Contact Us
               </Link>
               <Link
                 to="/"
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                className="block text-sm text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors hover:underline underline-offset-4"
               >
                 Privacy Policy
               </Link>
@@ -89,7 +87,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Contact</h3>
+            <h3 className="text-lg font-semibold">Contact</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
@@ -123,7 +121,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <span>Developed by</span>
-              <span className="font-medium text-foreground">
+              <span className="font-medium text-white dark:text-foreground">
                 Abdullah Al Mamun
               </span>
             </div>

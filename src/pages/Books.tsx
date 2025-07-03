@@ -17,10 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  useDeleteBookMutation,
-  useGetBooksQuery,
-} from "@/redux/features/books/booksApi";
+import { useGetBooksQuery } from "@/redux/features/books/booksApi";
 import type { Book, BooksQueryParams } from "@/redux/features/books/types";
 import { Filter, SortAsc, SortDesc } from "lucide-react";
 import React, { useState } from "react";
@@ -41,26 +38,15 @@ const Books: React.FC = () => {
   };
 
   const { data, error, isLoading } = useGetBooksQuery(queryParams);
-  const [deleteBook] = useDeleteBookMutation();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this book?")) {
-      try {
-        await deleteBook(id).unwrap();
-      } catch (error) {
-        console.error("Failed to delete book:", error);
-      }
-    }
-  };
-
-  const handleBorrow = (id: string) => {
-    console.log("Borrow book:", id);
-    // Implement borrow logic here
-  };
+  // const handleBorrow = (id: string) => {
+  //   console.log("Borrow book:", id);
+  //   // Implement borrow logic here
+  // };
 
   const handleGenreChange = (value: string) => {
     setSelectedGenre(value === "all" ? "" : (value as Book["genre"]));
@@ -203,7 +189,7 @@ const Books: React.FC = () => {
                 value={selectedGenre || "all"}
                 onValueChange={handleGenreChange}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-[138px]">
                   <SelectValue placeholder="Select genre" />
                 </SelectTrigger>
                 <SelectContent>
@@ -221,7 +207,7 @@ const Books: React.FC = () => {
             <div className="space-y-3 flex flex-col">
               <label className="text-sm font-medium">Sort By</label>
               <Select value={sortBy} onValueChange={handleSortByChange}>
-                <SelectTrigger>
+                <SelectTrigger className="w-[120px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -293,8 +279,7 @@ const Books: React.FC = () => {
             <BookCard
               key={book._id}
               book={book}
-              onDelete={handleDelete}
-              onBorrow={handleBorrow}
+              // onBorrow={handleBorrow}
             />
           ))}
         </div>
