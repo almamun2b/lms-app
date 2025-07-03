@@ -24,10 +24,10 @@ const Header = () => {
               Home
             </Link>
             <Link to="/books" className="hover:text-primary">
-              Books
+              All Books
             </Link>
             <Link to="/create-book" className="hover:text-primary">
-              Create Book
+              Add Book
             </Link>
             <Link to="/borrow-summary" className="hover:text-primary">
               Borrow Summary

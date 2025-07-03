@@ -1,4 +1,4 @@
-import type { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface CounterState {
