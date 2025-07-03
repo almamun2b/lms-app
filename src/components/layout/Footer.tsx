@@ -92,19 +92,19 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  info@library.com
+                  almamun2b@gmail.com
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  +1 (555) 123-4567
+                  +880161-0088700
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  123 Library St, Book City
+                  Sirajgonj, Bangladesh
                 </span>
               </div>
             </div>

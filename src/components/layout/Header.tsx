@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <header className="border-b sticky top-0 bg-background">
+    <header className="border-b sticky top-0 bg-background z-10">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="font-bold border p-2 rounded-full">

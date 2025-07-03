@@ -43,11 +43,6 @@ const Books: React.FC = () => {
     setCurrentPage(page);
   };
 
-  // const handleBorrow = (id: string) => {
-  //   console.log("Borrow book:", id);
-  //   // Implement borrow logic here
-  // };
-
   const handleGenreChange = (value: string) => {
     setSelectedGenre(value === "all" ? "" : (value as Book["genre"]));
     setCurrentPage(1);
@@ -276,11 +271,7 @@ const Books: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {data?.data.map((book) => (
-            <BookCard
-              key={book._id}
-              book={book}
-              // onBorrow={handleBorrow}
-            />
+            <BookCard key={book._id} book={book} />
           ))}
         </div>
       )}
