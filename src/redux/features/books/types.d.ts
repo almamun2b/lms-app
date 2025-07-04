@@ -17,6 +17,12 @@ interface Book {
   updatedAt: string;
 }
 
+interface BookDetailsResponse {
+  success: boolean;
+  message: string;
+  data: Book;
+}
+
 interface BooksResponse {
   success: boolean;
   message: string;
@@ -85,6 +91,7 @@ interface BorrowResponse {
 
 export type {
   Book,
+  BookDetailsResponse,
   BooksQueryParams,
   BooksResponse,
   BorrowRequestBody,

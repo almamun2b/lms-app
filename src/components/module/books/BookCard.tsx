@@ -30,8 +30,13 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1 space-y-2">
-            <CardTitle className="text-lg line-clamp-2 leading-tight">
-              {book.title}
+            <CardTitle className="text-lg line-clamp-2 leading-tight flex items-start justify-between gap-2">
+              <span>{book.title}</span>
+              <Button asChild variant="outline" size="sm">
+                <Link to={`/books/${book._id}`} className="text-sm">
+                  Details
+                </Link>
+              </Button>
             </CardTitle>
             <CardDescription className="text-sm">
               by {book.author}

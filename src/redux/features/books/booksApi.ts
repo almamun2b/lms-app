@@ -2,6 +2,7 @@ import { config } from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
   Book,
+  BookDetailsResponse,
   BooksQueryParams,
   BooksResponse,
   BorrowRequestBody,
@@ -31,6 +32,9 @@ const booksApi = createApi({
       },
       providesTags: ["books"],
     }),
+    getBookDetails: builder.query<BookDetailsResponse, string>({
+      query: (id) => `/books/${id}`,
+    }),
     addBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
         url: "/books",
@@ -39,18 +43,18 @@ const booksApi = createApi({
       }),
       invalidatesTags: ["books"],
     }),
-    deleteBook: builder.mutation<DeleteBookResponse, string>({
-      query: (id) => ({
-        url: `/books/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["books"],
-    }),
     updateBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
         url: `/books/${book._id}`,
         method: "PATCH",
         body: book,
+      }),
+      invalidatesTags: ["books"],
+    }),
+    deleteBook: builder.mutation<DeleteBookResponse, string>({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["books"],
     }),
@@ -84,6 +88,7 @@ export const {
   useUpdateBookMutation,
   useGetBorrowSummaryQuery,
   useBorrowBookMutation,
+  useGetBookDetailsQuery,
 } = booksApi;
 
 export { booksApi };

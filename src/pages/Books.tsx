@@ -37,7 +37,7 @@ const Books: React.FC = () => {
     sortBy: sortBy,
   };
 
-  const { data, error, isLoading } = useGetBooksQuery(queryParams);
+  const { data, error, isLoading, isFetching } = useGetBooksQuery(queryParams);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -143,8 +143,11 @@ const Books: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center py-12 min-h-64">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading books...</p>
+        </div>
       </div>
     );
   }
@@ -269,10 +272,15 @@ const Books: React.FC = () => {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative">
           {data?.data.map((book) => (
             <BookCard key={book._id} book={book} />
           ))}
+          {isFetching && (
+            <div className="absolute inset-0 bg-background/80 flex items-start justify-center rounded-md pt-40">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          )}
         </div>
       )}
 

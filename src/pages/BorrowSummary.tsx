@@ -26,7 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetBorrowSummaryQuery } from "@/redux/features/books/booksApi";
-import { AlertCircle, BookOpen, Loader2, RefreshCw } from "lucide-react";
+import { AlertCircle, BookOpen, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
 interface BorrowSummaryProps {
@@ -66,7 +66,7 @@ const BorrowSummary: React.FC<BorrowSummaryProps> = ({
   const LoadingSpinner = () => (
     <div className="flex items-center justify-center py-12">
       <div className="text-center">
-        <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-muted-foreground" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
         <p className="text-muted-foreground">Loading borrow summary...</p>
       </div>
     </div>
@@ -219,7 +219,7 @@ const BorrowSummary: React.FC<BorrowSummaryProps> = ({
         <CardContent>
           {isFetching && (
             <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-md">
-              <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           )}
           <div className="rounded-md border relative">
