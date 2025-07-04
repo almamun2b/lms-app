@@ -70,7 +70,7 @@ const DeleteBookModal: React.FC<DeleteBookModalProps> = ({ book }) => {
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isLoading}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="bg-destructive text-white dark:text-destructive-foreground hover:bg-destructive/90"
           >
             {isLoading ? (
               <>

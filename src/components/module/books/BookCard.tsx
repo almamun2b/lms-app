@@ -77,7 +77,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
       <CardFooter className="flex items-center justify-between gap-2 pt-3">
         <div className="flex gap-2">
           <Button asChild variant="outline" size="sm">
-            <Link to={`/books/${book._id}/edit`}>
+            <Link to={`/edit-book/${book._id}`}>
               <Edit className="w-4 h-4 mr-1" />
               Edit
             </Link>

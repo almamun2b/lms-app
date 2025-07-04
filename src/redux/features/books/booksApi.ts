@@ -35,7 +35,7 @@ const booksApi = createApi({
     getBookDetails: builder.query<BookDetailsResponse, string>({
       query: (id) => `/books/${id}`,
     }),
-    addBook: builder.mutation<Book, Partial<Book>>({
+    addBook: builder.mutation<BookDetailsResponse, Partial<Book>>({
       query: (book) => ({
         url: "/books",
         method: "POST",
@@ -43,7 +43,7 @@ const booksApi = createApi({
       }),
       invalidatesTags: ["books"],
     }),
-    updateBook: builder.mutation<Book, Partial<Book>>({
+    updateBook: builder.mutation<BookDetailsResponse, Partial<Book>>({
       query: (book) => ({
         url: `/books/${book._id}`,
         method: "PATCH",

@@ -1,10 +1,13 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetBookDetailsQuery } from "@/redux/features/books/booksApi";
-import { useParams } from "react-router";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate, useParams } from "react-router";
 
 const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useGetBookDetailsQuery(id!, {
     skip: !id,
@@ -45,6 +48,14 @@ const BookDetails = () => {
   // Show book details
   return (
     <div className="container mx-auto py-10 px-4">
+      <Button
+        variant="ghost"
+        onClick={() => navigate("/books")}
+        className="mb-4"
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Back to Books
+      </Button>
       <Card className="max-w-2xl mx-auto shadow-lg rounded-2xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center">

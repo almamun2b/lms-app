@@ -27,7 +27,7 @@ const Books: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [selectedGenre, setSelectedGenre] = useState<Book["genre"] | "">("");
   const [sortBy, setSortBy] = useState<keyof Book>("updatedAt");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const queryParams: BooksQueryParams = {
     page: currentPage,
@@ -227,7 +227,7 @@ const Books: React.FC = () => {
                 onClick={toggleSortOrder}
                 className=" bg-white w-[134px]"
               >
-                {sortOrder === "asc" ? (
+                {sortOrder === "desc" ? (
                   <>
                     <SortAsc className="w-4 h-4 mr-2" />
                     Ascending
