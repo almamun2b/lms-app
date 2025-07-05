@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetBookDetailsQuery } from "@/redux/features/books/booksApi";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,15 +47,17 @@ const BookDetails = () => {
 
   // Show book details
   return (
-    <div className="container mx-auto py-10 px-4">
-      <Button
-        variant="ghost"
-        onClick={() => navigate("/books")}
-        className="mb-4"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Books
-      </Button>
+    <div className="container mx-auto pb-10 px-4">
+      <div className="max-w-2xl mx-auto">
+        <Button
+          variant="ghost"
+          onClick={() => navigate("/books")}
+          className="mb-4"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Books
+        </Button>
+      </div>
       <Card className="max-w-2xl mx-auto shadow-lg rounded-2xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center">
@@ -104,7 +106,13 @@ const BookDetails = () => {
               </div>
             )}
 
-            <div className="border-t pt-4 mt-6">
+            <Button asChild variant="outline" size="sm">
+              <Link to={`/edit-book/${data.data._id}`} className="text-sm">
+                Edit
+              </Link>
+            </Button>
+
+            <div className="border-t pt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground">
                 <div>
                   <span className="font-medium">Created:</span>{" "}

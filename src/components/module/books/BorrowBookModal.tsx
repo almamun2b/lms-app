@@ -12,22 +12,14 @@ import {
 import { Input } from "@/components/ui/input";
 import type { Book } from "@/redux/features/books/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BookOpen, CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl } from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
@@ -36,6 +28,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useBorrowBookMutation } from "@/redux/features/books/booksApi";
 import { format } from "date-fns";
+import { DynamicFormField } from "./DynamicFormField";
 
 // Zod validation schema
 const borrowBookSchema = z.object({
@@ -95,7 +88,6 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({ book }) => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button size="sm" className="ml-auto">
-          <BookOpen className="w-4 h-4 mr-1" />
           Borrow
         </Button>
       </DialogTrigger>
@@ -119,75 +111,61 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({ book }) => {
           <form onSubmit={form.handleSubmit(handleBorrow)}>
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <FormField
-                  control={form.control}
+                <DynamicFormField
                   name="quantity"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Quantity</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          value={field.value || 0}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                          disabled={isLoading}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        Maximum {book.copies} copies available
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                  label="Quantity"
+                  description={`Maximum ${book.copies} copies available`}
+                  children={(field) => (
+                    <Input
+                      {...field}
+                      value={field.value || 0}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                      disabled={isLoading}
+                    />
                   )}
                 />
               </div>
               <div className="grid gap-3">
-                <FormField
-                  control={form.control}
+                <DynamicFormField
                   name="dueDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col mt-2">
-                      <FormLabel>Due date</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                              disabled={isLoading}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) => {
-                              const today = new Date();
-                              today.setHours(0, 0, 0, 0);
-                              return (
-                                date < today || date < new Date("1900-01-01")
-                              );
-                            }}
-                            captionLayout="dropdown"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
+                  label="Due date"
+                  children={(field) => (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                            disabled={isLoading}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => {
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+                            return (
+                              date < today || date < new Date("1900-01-01")
+                            );
+                          }}
+                          captionLayout="dropdown"
+                        />
+                      </PopoverContent>
+                    </Popover>
                   )}
                 />
               </div>

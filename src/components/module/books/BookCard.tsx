@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Book } from "@/redux/features/books/types";
-import { Book as BookIcon, BookOpen, Edit } from "lucide-react";
+import { Book as BookIcon, Edit } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 import { toast } from "sonner";
@@ -93,7 +93,6 @@ export const BookCard: React.FC<BookCardProps> = ({ book }) => {
             className="ml-auto"
             onClick={handleShowNotAvailable}
           >
-            <BookOpen className="w-4 h-4 mr-1" />
             Borrow
           </Button>
         )}

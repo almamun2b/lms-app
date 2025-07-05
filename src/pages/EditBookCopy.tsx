@@ -9,7 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Form, FormControl } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -102,7 +110,7 @@ export const UpdateBook: React.FC = () => {
       genre: "FICTION",
       isbn: "",
       description: "",
-      copies: 0,
+      copies: 1,
       available: true,
     },
   });
@@ -247,53 +255,90 @@ export const UpdateBook: React.FC = () => {
                     )}
                   />
 
-                  <DynamicFormField
-                    name="author"
-                    label="Author *"
-                    children={(field) => (
-                      <Input
-                        {...field}
-                        placeholder="Enter author name"
-                        disabled={isSubmitting}
-                      />
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Title *</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Enter book title"
+                            disabled={isSubmitting}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )}
                   />
 
-                  <DynamicFormField
-                    name="genre"
-                    label="Genre *"
-                    children={(field) => (
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        disabled={isSubmitting}
-                        key={book?.genre || "default"}
-                      >
+                  <FormField
+                    control={form.control}
+                    name="author"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Author *</FormLabel>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a genre" />
-                          </SelectTrigger>
+                          <Input
+                            {...field}
+                            placeholder="Enter author name"
+                            disabled={isSubmitting}
+                          />
                         </FormControl>
-                        <SelectContent>
-                          {GENRE_OPTIONS.map((genre) => (
-                            <SelectItem key={genre.value} value={genre.value}>
-                              {genre.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        <FormMessage />
+                      </FormItem>
                     )}
                   />
-                  <DynamicFormField
+
+                  <FormField
+                    control={form.control}
+                    name="genre"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Genre *</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          disabled={isSubmitting}
+                          key={book?.genre || "default"}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a genre" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {GENRE_OPTIONS.map((genre) => (
+                              <SelectItem key={genre.value} value={genre.value}>
+                                {genre.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
                     name="isbn"
-                    label="ISBN *"
-                    description="Enter the ISBN with or without hyphens"
-                    children={(field) => (
-                      <Input
-                        {...field}
-                        placeholder="Enter ISBN (e.g., 978-3-16-148410-0)"
-                        disabled={isSubmitting}
-                      />
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>ISBN *</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Enter ISBN (e.g., 978-3-16-148410-0)"
+                            disabled={isSubmitting}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Enter the ISBN with or without hyphens
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
                     )}
                   />
                 </div>
@@ -305,18 +350,27 @@ export const UpdateBook: React.FC = () => {
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Description</h3>
 
-                <DynamicFormField
+                <FormField
+                  control={form.control}
                   name="description"
-                  label="Book Description *"
-                  description="Provide a comprehensive description that will help users understand what the book is about"
-                  children={(field) => (
-                    <Textarea
-                      {...field}
-                      placeholder="Enter a detailed description of the book..."
-                      disabled={isSubmitting}
-                      rows={6}
-                      className="resize-none"
-                    />
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Book Description *</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          {...field}
+                          placeholder="Enter a detailed description of the book..."
+                          disabled={isSubmitting}
+                          rows={6}
+                          className="resize-none"
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Provide a comprehensive description that will help users
+                        understand what the book is about
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
                   )}
                 />
               </div>
@@ -328,30 +382,54 @@ export const UpdateBook: React.FC = () => {
                 <h3 className="text-lg font-semibold">Inventory Information</h3>
 
                 <div className="grid gap-4">
-                  <DynamicFormField
+                  <FormField
+                    control={form.control}
                     name="copies"
-                    label="Number of Copies *"
-                    description="How many copies of this book are available in the library"
-                    children={(field) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        value={field.value || 0}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
-                        disabled={isSubmitting}
-                      />
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Number of Copies *</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="number"
+                            min={1}
+                            max={1000}
+                            value={field.value || 1}
+                            onChange={(e) =>
+                              field.onChange(Number(e.target.value))
+                            }
+                            disabled={isSubmitting}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          How many copies of this book are available in the
+                          library
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
                     )}
                   />
-                  <DynamicFormField
+
+                  <FormField
+                    control={form.control}
                     name="available"
-                    label="Available for borrowing"
-                    description="Check this if the book should be available for users to borrow immediately"
-                    children={(field) => (
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isSubmitting}
-                      />
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            disabled={isSubmitting}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel>Available for borrowing</FormLabel>
+                          <FormDescription>
+                            Check this if the book should be available for users
+                            to borrow
+                          </FormDescription>
+                        </div>
+                      </FormItem>
                     )}
                   />
                 </div>
