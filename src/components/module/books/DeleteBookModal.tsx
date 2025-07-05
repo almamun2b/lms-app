@@ -14,6 +14,7 @@ import { useDeleteBookMutation } from "@/redux/features/books/booksApi";
 import type { Book } from "@/redux/features/books/types";
 import { Loader2, Trash2 } from "lucide-react";
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import { toast } from "sonner";
 
 interface DeleteBookModalProps {
@@ -23,18 +24,24 @@ interface DeleteBookModalProps {
 const DeleteBookModal: React.FC<DeleteBookModalProps> = ({ book }) => {
   const [deleteBook, { isLoading }] = useDeleteBookMutation();
   const [isOpen, setIsOpen] = useState(false);
+  const { id } = useParams<{ id: string }>();
 
   const handleDelete = async () => {
     try {
       const res = await deleteBook(book._id).unwrap();
 
       toast.success(res.message);
+      if (id === book._id) {
+        window.location.href = `/books`;
+      }
 
       // Close the modal
       setIsOpen(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete book:", error);
-      toast.error("Failed to delete book. Please try again.");
+      toast.error(
+        error?.data?.message || "Failed to delete book. Please try again."
+      );
     }
   };
 

@@ -104,9 +104,11 @@ const CreateBook: React.FC = () => {
       setTimeout(() => {
         navigate("/books");
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to create book:", error);
-      toast.error("Failed to create book. Please try again.");
+      toast.error(
+        error?.data?.message || "Failed to create book. Please try again."
+      );
     }
   };
 

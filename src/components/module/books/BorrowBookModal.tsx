@@ -78,9 +78,11 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({ book }) => {
       setIsOpen(false);
       form.reset();
       window.location.href = `/borrow-summary`;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to borrow book:", error);
-      toast.error("Failed to borrow book. Please try again.");
+      toast.error(
+        error?.data?.message || "Failed to borrow book. Please try again."
+      );
     }
   };
 

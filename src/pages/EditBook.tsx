@@ -140,9 +140,11 @@ export const UpdateBook: React.FC = () => {
       setTimeout(() => {
         navigate("/books");
       }, 1500);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to update book:", error);
-      toast.error("Failed to update book. Please try again.");
+      toast.error(
+        error?.data?.message || "Failed to update book. Please try again."
+      );
     }
   };
 
