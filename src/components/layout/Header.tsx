@@ -1,14 +1,37 @@
 import { BookOpen, Menu, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ModeToggle } from "../mode-toggle";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="border-b sticky top-0 bg-background z-10">
@@ -60,17 +83,32 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-background shadow-lg rounded-lg p-4 space-y-4 md:hidden">
-          <Link to="/" className="block px-4 py-2 text-gray-900">
+        <div
+          ref={mobileMenuRef}
+          className="absolute top-full left-0 w-full bg-background shadow-lg rounded-lg p-4 space-y-4 md:hidden"
+        >
+          <Link
+            to="/"
+            className="block px-4 py-2 text-gray-900 dark:text-white"
+          >
             Home
           </Link>
-          <Link to="/books" className="block px-4 py-2 text-gray-900">
+          <Link
+            to="/books"
+            className="block px-4 py-2 text-gray-900 dark:text-white"
+          >
             Books
           </Link>
-          <Link to="/create-book" className="block px-4 py-2 text-gray-900">
+          <Link
+            to="/create-book"
+            className="block px-4 py-2 text-gray-900 dark:text-white"
+          >
             Create Book
           </Link>
-          <Link to="/borrow-summary" className="block px-4 py-2 text-gray-900">
+          <Link
+            to="/borrow-summary"
+            className="block px-4 py-2 text-gray-900 dark:text-white"
+          >
             Borrow Summary
           </Link>
         </div>
