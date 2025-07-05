@@ -1,9 +1,12 @@
+import { BorrowBookModal } from "@/components/module/books/BorrowBookModal";
+import { DeleteBookModal } from "@/components/module/books/DeleteBookModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetBookDetailsQuery } from "@/redux/features/books/booksApi";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Edit } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 const BookDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +15,10 @@ const BookDetails = () => {
   const { data, isLoading, isError, error } = useGetBookDetailsQuery(id!, {
     skip: !id,
   });
+
+  const handleShowNotAvailable = () => {
+    toast.error("Book is not available for borrowing.");
+  };
 
   // Show loading state
   if (isLoading) {
@@ -97,6 +104,20 @@ const BookDetails = () => {
               )}
             </div>
 
+            <div className="flex items-center gap-2">
+              <span className="font-semibold min-w-[100px]">Created at:</span>
+              <span className="text-sm">
+                {new Date(data.data.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="font-semibold min-w-[100px]">Updated at:</span>
+              <span className="text-sm">
+                {new Date(data.data.updatedAt).toLocaleDateString()}
+              </span>
+            </div>
+
             {data.data.description && (
               <div className="space-y-2">
                 <span className="font-semibold">Description:</span>
@@ -106,23 +127,28 @@ const BookDetails = () => {
               </div>
             )}
 
-            <Button asChild variant="outline" size="sm">
-              <Link to={`/edit-book/${data.data._id}`} className="text-sm">
-                Edit
-              </Link>
-            </Button>
-
-            <div className="border-t pt-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground">
-                <div>
-                  <span className="font-medium">Created:</span>{" "}
-                  {new Date(data.data.createdAt).toLocaleDateString()}
-                </div>
-                <div>
-                  <span className="font-medium">Updated:</span>{" "}
-                  {new Date(data.data.updatedAt).toLocaleDateString()}
-                </div>
+            <div className="flex items-center justify-between gap-2 border-t pt-4">
+              <div className="flex gap-2">
+                <Button asChild variant="outline" size="sm">
+                  <Link to={`/edit-book/${data.data._id}`}>
+                    <Edit className="w-4 h-4 mr-1" />
+                    Edit
+                  </Link>
+                </Button>
+                <DeleteBookModal book={data.data} />
               </div>
+
+              {data.data.available ? (
+                <BorrowBookModal book={data.data} />
+              ) : (
+                <Button
+                  size="sm"
+                  className="ml-auto"
+                  onClick={handleShowNotAvailable}
+                >
+                  Borrow
+                </Button>
+              )}
             </div>
           </div>
         </CardContent>
