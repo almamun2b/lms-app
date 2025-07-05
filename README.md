@@ -52,10 +52,10 @@ src/
   |   ├── layout/         # Header, Footer, etc.
   |   ├── module/         # Specific module components (books, borrow, etc.)
   |   └── ui/             # Shared UI elements (buttons, cards, forms, etc.)
-  ├── config/            # Environment variables & app config
-  ├── lib/              # Utility functions
-  ├── pages/            # Individual page components
-  ├── providers/        # Theme, context, etc.
+  ├── config/             # Environment variables & app config
+  ├── lib/                # Utility functions
+  ├── pages/              # Individual page components
+  ├── providers/          # Theme, context, etc.
   ├── redux/
   │   ├── features/       # Redux slices & RTK Query endpoints
   │   ├── hooks/          # Custom hooks for Redux
@@ -119,7 +119,7 @@ Edit the API base URL in your RTK Query service setup to match your backend serv
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:5173](http://localhost:5173/) to view the app.
 
 ---
 
@@ -154,7 +154,3 @@ PRs are welcome! Please open an issue to discuss any big changes.
 
 > Minimal Library Management System – Frontend  
 > Made with ❤️ by [Abdullah Al Mamun]
-
-```
-
-```
